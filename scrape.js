@@ -9,7 +9,6 @@ const server = http.createServer((req, res) => {
 	request('https://www.binance.com/en/news', (error, response, html) => {
 		if (!error && response.statusCode == 200) {
 			const $ = cheerio.load(html);
-			const news = $('.css-1i9bvdl');
 
 			var titles = [];
 
@@ -34,7 +33,6 @@ const server = http.createServer((req, res) => {
 				(v, i, a) =>
 					a.findIndex((t) => t.link === v.link && t.title === v.title) === i,
 			);
-			console.log(newArr.length);
 			res.statusCode = 200;
 			res.setHeader('Content-Type', 'application/json');
 			res.end(
