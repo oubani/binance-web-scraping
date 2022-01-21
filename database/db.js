@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
-const MONGOURI = `mongodb+srv://oubani123:oubani123@oubani.ej0s4.mongodb.net/cryptoCoin?retryWrites=true&w=majority`;
-
 const connectDb = async () => {
-	const conn = await mongoose.connect(MONGOURI, {
+	const conn = await mongoose.connect(process.env.MONGO_URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	});
