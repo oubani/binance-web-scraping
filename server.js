@@ -14,6 +14,8 @@ connectDb();
 
 // import Routes
 const auth = require('./routes/auth');
+const favorites = require('./routes/favorite');
+const { protect } = require('./middleware/auth');
 
 // initial app with expres
 const app = express();
@@ -67,6 +69,7 @@ app.post('/logout', (req, res) => {
 });
 
 app.use('/auth', auth);
+app.use('/favorites', protect, favorites);
 
 const server = app.listen(3000, () => {
 	console.log(`server running in 5000`);
