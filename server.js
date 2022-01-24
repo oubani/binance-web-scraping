@@ -1,9 +1,24 @@
 const express = require('express');
 const request = require('request');
 const cheerio = require('cheerio');
+const dotenv = require('dotenv');
+const connectDb = require('./database/db');
+
+// Load vars
+dotenv.config({
+	path: './config/config.env',
+});
+
+// connect to Db
+connectDb();
+
+// import Routes
+const auth = require('./routes/auth');
 
 // initial app with expres
 const app = express();
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
 	request('https://www.binance.com/en/news', (error, response, html) => {
@@ -47,18 +62,17 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.post('/login', (req, res) => {
-	res.send('login from express');
-});
-
-app.post('/register', (req, res) => {
-	res.send('res from express');
-});
-
 app.post('/logout', (req, res) => {
 	res.send('hello from express');
 });
 
-app.listen(3000, () => {
+app.use('/auth', auth);
+
+const server = app.listen(3000, () => {
 	console.log(`server running in 5000`);
+});
+
+process.on('unhandledRejection', (err, promise) => {
+	console.log(`Error : ${err.message}`);
+	server.close(() => process.exit(1));
 });
