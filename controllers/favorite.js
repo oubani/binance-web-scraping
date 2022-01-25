@@ -3,9 +3,11 @@ const Favorite = require('../models/Favorite');
 
 exports.getAllFavorite = async (req, res) => {
 	try {
+		const favorites = await Favorite.find({ user: req.user });
+
 		return res
 			.status(200)
-			.json({ message: 'get all favorite', user: req.user });
+			.json({ message: 'get all favorite', user: req.user, favorites });
 	} catch (error) {
 		return res.status(400).json({ message: error.message });
 	}
