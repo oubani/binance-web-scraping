@@ -29,7 +29,7 @@ app.use('/favorites', protect, favorites);
 app.use('/', posts);
 
 const server = app.listen(3000, () => {
-	console.log(`server running in 5000`);
+	console.log(`server running in 3000  https://localhost:3000 `);
 });
 
 process.on('unhandledRejection', (err, promise) => {

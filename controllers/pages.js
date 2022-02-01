@@ -31,12 +31,13 @@ exports.getAllposts = async (req, res) => {
 			);
 			res.statusCode = 200;
 			res.setHeader('Content-Type', 'application/json');
-			res.end(
-				JSON.stringify({
-					success: true,
-					news: newArr,
-				}),
-			);
+			res.status(200).json({ success: true, news: newArr });
+			// res.end(
+			// 	JSON.stringify({
+			// 		success: true,
+			// 		news: newArr,
+			// 	}),
+			// );
 		}
 		// npm install --save-dev nodemon
 		// 'start' :nodemon scrape
@@ -61,7 +62,7 @@ exports.getSinglepost = async (req, res) => {
 							}
 						});
 					});
-				res.status(200).json({ data: { title: title.html(), text: articles } });
+				res.status(200).json({ title: title.html(), text: articles });
 			}
 		},
 	);
