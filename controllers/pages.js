@@ -45,9 +45,9 @@ exports.getAllposts = async (req, res) => {
 };
 
 exports.getSinglepost = async (req, res) => {
-	console.log(`https://www.binance.com/${req.body.link}`);
+	console.log(`https://www.binance.com${req.body.link}`);
 	request(
-		`https://www.binance.com/${req.body.link}`,
+		`https://www.binance.com${req.body.link}`,
 		(error, response, html) => {
 			if (!error && response.statusCode == 200) {
 				const $ = cheerio.load(html);
@@ -62,6 +62,7 @@ exports.getSinglepost = async (req, res) => {
 							}
 						});
 					});
+				console.log(title, articles);
 				res.status(200).json({ title: title.html(), text: articles });
 			}
 		},
